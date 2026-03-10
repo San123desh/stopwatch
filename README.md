@@ -1,34 +1,34 @@
-# Stopwatch & Focus Tracker
+# 365 Stopwatch
 
-A professional, Dockerized focus application designed to help you track your deep work sessions with a 365-day consistency grid.
+A professional, high-performance focus application designed to help you track your deep work sessions with a 365-day consistency grid.
 
 ## 🚀 Features
 
 - **High-Precision Stopwatch**: Start, stop, and reset your focus sessions with ease.
-- **Consistency Tracker**: A GitHub-style 365-day grid that visualizes your daily progress.
-- **LocalStorage Persistence**: Your progress is saved directly in your browser, no login required.
-- **One-Click Launch**: Includes a convenient setup script for Windows.
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Vanilla JavaScript (ES6 Modules), CSS3, HTML5.
-- **Backend**: Django (Python 3.11) - Used for serving static files.
-- **Deployment**: Docker & Docker Compose.
+- **365-Day Consistency Tracker**: A GitHub-style grid that visualizes your daily progress over a full year.
+- **LocalStorage Persistence**: Your progress is saved directly in your browser, no login or database required.
+- **Neon Retro Aesthetic**: A stunning Dark Neon interface with CRT-inspired effects.
+- **Easy Hosting**: Ready to be hosted on GitHub Pages or Vercel.
 
 ## 🏁 Quick Start
 
-### Prerequisites
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
+### 🌐 Live Version
+Access the live app here: **[Your GitHub Pages URL (e.g. https://username.github.io/stopwatch/)](https://github.com/San123desh/stopwatch)**
 
-### Launching the Application
-1. Clone the repository to your local machine.
-2. Double-click the `start_app.bat` file in the root directory.
-   - *This will automatically build the containers, start the services, and open the app in your browser.*
-3. Alternatively, run via terminal:
-   ```bash
-   docker compose -f deploy/docker-compose.yml up -d --build
-   ```
-4. Access the app at: **[http://localhost:8000](http://localhost:8000)**
+### 💻 Local Run
+1. Clone the repository.
+2. Double-click `start_app.bat` (Windows) or open `docs/index.html` in your browser.
+
+## 🛠️ Deploy to GitHub Pages
+
+1. Go to your repository **Settings** on GitHub.
+2. Click on **Pages** in the left sidebar.
+3. Under **Build and deployment > Branch**, select `master` (or your main branch).
+4. Select `/docs` as the folder.
+5. Click **Save**.
+
+---
+*Created for deep-focus enthusiasts.*
 
 ## 📖 Usage Guide
 
