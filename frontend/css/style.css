@@ -84,11 +84,15 @@ body {
     font-size: 8rem;
     color: var(--neon-cyan);
     text-shadow: 
-        0 0 10px var(--neon-cyan),
-        0 0 20px var(--neon-cyan),
-        0 0 40px rgba(28, 162, 170, 0.59);
+        0 0 5cap var(--neon-cyan),
+        0 0 15px var(--neon-cyan),
+        0 0 30px rgba(38, 209, 218, 0.59);
     user-select: none;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+    min-width: 9ch;
+    text-align: center;
 }
 
 .controls {
