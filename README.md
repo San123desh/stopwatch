@@ -6,14 +6,13 @@ A professional, Dockerized focus application designed to help you track your dee
 
 - **High-Precision Stopwatch**: Start, stop, and reset your focus sessions with ease.
 - **Consistency Tracker**: A GitHub-style 365-day grid that visualizes your daily progress.
-- **Automated Storage**: Integrates with a Django/Postgres backend to persist your focus milestones.
+- **LocalStorage Persistence**: Your progress is saved directly in your browser, no login required.
 - **One-Click Launch**: Includes a convenient setup script for Windows.
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: Vanilla JavaScript (ES6 Modules), CSS3, HTML5.
-- **Backend**: Django (Python 3.11), Django Rest Framework.
-- **Database**: PostgreSQL 16.
+- **Backend**: Django (Python 3.11) - Used for serving static files.
 - **Deployment**: Docker & Docker Compose.
 
 ## 🏁 Quick Start

@@ -1,4 +1,4 @@
-import { API_URL, getFetchOptions } from './api.js';
+import { grid } from './grid.js';
 
 export const timer = {
     state: {
@@ -10,7 +10,6 @@ export const timer = {
         unsavedSeconds: 0
     },
     dom: {},
-    isLoggedIn: false, // Updated by main
 
     init(domElements) {
         this.dom = domElements;
@@ -50,7 +49,7 @@ export const timer = {
         if (!this.state.running) return;
         this.state.running = false;
         clearInterval(this.state.interval);
-        this.syncProgress(this.state.unsavedSeconds); // Final sync
+        this.saveProgress(this.state.unsavedSeconds); // Final sync
         this.state.unsavedSeconds = 0;
     },
 
@@ -70,13 +69,8 @@ export const timer = {
         const pad = n => n.toString().padStart(2, '0');
         this.dom.timerDisplay.textContent = `${pad(hours)}:${pad(mins)}:${pad(secs)}:${pad(ms)}`;
 
-        // Instant Green Feedback (2 hours = 7200000 ms)
-        if (this.state.elapsedTime >= 7200000) {
-            const currentBox = document.querySelector('.day-box.current');
-            if (currentBox && !currentBox.classList.contains('status-green')) {
-                currentBox.classList.add('status-green');
-            }
-        }
+        // Instant Grid Feedback
+        grid.render();
     },
 
     startAutoSaveLoop() {
@@ -84,24 +78,16 @@ export const timer = {
             if (this.state.running) {
                 this.state.unsavedSeconds++;
                 if (this.state.unsavedSeconds >= 5) {
-                    this.syncProgress(this.state.unsavedSeconds);
+                    this.saveProgress(this.state.unsavedSeconds);
                     this.state.unsavedSeconds = 0;
                 }
             }
         }, 1000);
     },
 
-    async syncProgress(duration) {
-        if (!this.isLoggedIn || duration <= 0) return;
+    saveProgress(duration) {
+        if (duration <= 0) return;
         const today = new Date().toISOString().split('T')[0];
-        try {
-            await fetch(`${API_URL}/progress/update_progress/`, {
-                ...getFetchOptions('POST'),
-                body: JSON.stringify({ date: today, session_duration: duration })
-            });
-            // Trigger grid refresh? Handled by polling in grid.js
-        } catch (e) {
-            console.error("Save failed", e);
-        }
+        grid.updateProgress(today, duration);
     }
 };
