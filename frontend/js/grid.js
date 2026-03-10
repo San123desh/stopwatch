@@ -103,11 +103,13 @@ export const grid = {
             if (this.data[dateStr]) {
                 const item = this.data[dateStr];
                 seconds = item.total_seconds;
-                status = (item.status === 'green') ? 'green' : 'red';
+                status = (item.status === 'green') ? 'green' : (dateStr === todayStr ? 'neutral' : 'red');
             } else if (dateStr < todayStr) {
                 status = 'red';
             } else if (dateStr > todayStr) {
                 status = 'future';
+            } else {
+                status = 'neutral'; // Explicitly today
             }
 
             // Real-time guest feedback for "today"
