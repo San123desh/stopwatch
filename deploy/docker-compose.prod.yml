@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=stopwatch_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+
+  web:
+    build: ./backend
+    command: gunicorn stopwatch_project.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SECRET_KEY=prod_secret_key_CHANGE_THIS
+      - DJANGO_DEBUG=False
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/stopwatch_db
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./backend/staticfiles:/app/staticfiles
+      - ./frontend:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    restart: always
+
+volumes:
+  postgres_data:

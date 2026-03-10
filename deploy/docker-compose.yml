@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=stopwatch_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+  web:
+    build: ../backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ../backend:/app
+      - ../frontend:/app/frontend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SECRET_KEY=dev_secret_key_123
+      - DJANGO_DEBUG=True
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/stopwatch_db
+
+volumes:
+  postgres_data:

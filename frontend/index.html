@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Auth Banner -->
+        <div id="auth-banner" class="hidden">
+            Progress won't be saved unless you <span id="login-link">log in</span>.
+        </div>
+
+        <main class="container">
+            <!-- Left Panel: Stopwatch -->
+            <section class="stopwatch-section">
+                <div class="timer-display" id="timer">00:00:00:00</div>
+                <div class="controls">
+                    <p class="instruction">Press Spacebar to Start/Stop</p>
+                    <button id="reset-btn" class="secondary-btn">Reset Session</button>
+                    <button id="fullscreen-btn" class="icon-btn" title="Fullscreen">⛶</button>
+                </div>
+            </section>
+
+            <!-- Right Panel: 365 Tracker -->
+            <section class="tracker-section">
+                <div class="tracker-header">
+                    <h2>Tracker</h2>
+                    <div id="user-controls">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+                <div class="grid-container" id="tracker-grid">
+                    <!-- Grid items injected by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Modals -->
+        <div id="auth-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-title">Login</h2>
+                <form id="auth-form">
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="email" id="email" placeholder="Email (Register only)" class="hidden">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <input type="text" id="otp-input" placeholder="Enter OTP (Check Console)" class="hidden">
+                    <button type="submit" id="auth-submit">Login</button>
+                </form>
+                <p id="toggle-auth">Don't have an account? Register</p>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

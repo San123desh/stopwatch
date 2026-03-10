@@ -1,0 +1,302 @@
+:root {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --accent-green: #00e676;
+    --accent-red: #ff5252;
+    --box-bg: #1e1e1e;
+    --box-completed: #00e676;
+    --box-missed: #333333;
+    /* Default active day color before completion */
+    --box-past-missed: #ff5252;
+    --h-font: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --mono-font: 'Courier New', Courier, monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--h-font);
+    height: 100vh;
+    overflow: hidden;
+    /* Prevent body scroll logic handling in app */
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Banner */
+#auth-banner {
+    background: #ff9800;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#auth-banner.hidden {
+    display: none;
+}
+
+#login-link {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    height: 100%;
+}
+
+/* Stopwatch Section */
+.stopwatch-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #333;
+}
+
+.timer-display {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 800;
+    font-size: 8rem;
+    color: var(--text-color);
+    user-select: none;
+}
+
+.controls {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.instruction {
+    margin-bottom: 20px;
+    color: #888;
+}
+
+.secondary-btn {
+    background: transparent;
+    border: 1px solid #555;
+    color: #888;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.secondary-btn:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.icon-btn:hover {
+    color: #fff;
+}
+
+/* Tracker Section */
+.tracker-section {
+    width: 400px;
+    padding: 20px;
+    background: #181818;
+    display: flex;
+    flex-direction: column;
+}
+
+.tracker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* 7 days a week style or adjust for 365 density */
+    gap: 4px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* 365 days is a lot, maybe smaller grid */
+.grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(14px, 1fr));
+}
+
+.day-box {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: var(--box-missed);
+    border-radius: 2px;
+    position: relative;
+    cursor: default;
+}
+
+.day-box.completed {
+    background-color: var(--box-completed);
+}
+
+.day-box.past-missed {
+    background-color: var(--box-past-missed);
+}
+
+.day-box.current {
+    border: 1px solid #fff;
+}
+
+.day-box.status-green {
+    background-color: var(--box-completed) !important;
+    /* #00e676 */
+}
+
+.day-box.status-red {
+    background-color: var(--accent-red);
+    /* #ff5252 */
+}
+
+/* Global Tooltip (JS Controlled) */
+.global-tooltip {
+    position: absolute;
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: pre;
+    z-index: 9999;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid #444;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+    margin-top: -8px;
+    /* Offset above box */
+}
+
+.global-tooltip.hidden {
+    display: none;
+}
+
+/* Logout Button Style */
+.btn-secondary {
+    background-color: #333;
+    color: #ccc;
+    border: 1px solid #555;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #444;
+    color: white;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #252525;
+    padding: 30px;
+    border-radius: 8px;
+    width: 300px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+#auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+input {
+    padding: 10px;
+    background: #333;
+    border: 1px solid #444;
+    color: #fff;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    padding: 10px;
+    background: var(--accent-green);
+    border: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Fullscreen override */
+.fullscreen .stopwatch-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    z-index: 500;
+}
+
+.fullscreen .tracker-section {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .tracker-section {
+        width: 100%;
+        height: 40%;
+    }
+
+    .timer-display {
+        font-size: 4rem;
+    }
+}
